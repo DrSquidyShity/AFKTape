@@ -1,11 +1,16 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "org.sam.afktape.mixin",
+  "package": "org.sam.afktape.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
   ],
   "client": [
+    "InGameHudMixin",
+    "KeyBindingAccessor",
+    "KeyboardMixin",
+    "MinecraftClientMixin",
+    "MouseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -3,11 +3,11 @@
   "id": "afktape",
   "version": "${version}",
   "name": "AFKTape",
-  "description": "kill mob to dupe",
+  "description": "A simple mod that allows you to hold down keys while AFK.",
   "authors": [],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/afktape/icon.png",
+  "icon": "assets/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
