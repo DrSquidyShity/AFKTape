@@ -1,6 +1,5 @@
 package org.sam.afktape.mixins;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -17,7 +16,7 @@ public abstract class InGameHudMixin {
     @Shadow
     public abstract TextRenderer getTextRenderer();
 
-    //render HUD when running
+    // Render HUD when running
     @Inject(at = @At("TAIL"), method = "render")
     private void modifyRender(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
 
@@ -28,18 +27,20 @@ public abstract class InGameHudMixin {
             int scaledWidth = context.getScaledWindowWidth();
             int scaledHeight = context.getScaledWindowHeight();
 
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
-
             int additive = 0;
             for (int i = lines.length - 1; i >= 0; i--) {
-
                 int width = renderer.getWidth(lines[i]);
 
-                context.drawText(renderer, lines[i], (scaledWidth / 2) - (width / 2), ((scaledHeight / 2) - 20) + additive, 1, true);
+                context.drawText(
+                        renderer,
+                        lines[i],
+                        (scaledWidth / 2) - (width / 2),
+                        ((scaledHeight / 2) - 20) + additive,
+                        0xFFFFFF, // white text
+                        true // with shadow
+                );
                 additive -= 10;
             }
-            RenderSystem.disableBlend();
         }
     }
 }
