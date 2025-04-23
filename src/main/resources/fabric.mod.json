@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "afktape",
+  "version": "${version}",
+  "name": "AFKTape",
+  "description": "kill mob to dupe",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/afktape/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "org.sam.afktape.client.AFKTapeClient"
+    ],
+    "main": [
+      "org.sam.afktape.AFKTape"
+    ]
+  },
+  "mixins": [
+    "afktape.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
