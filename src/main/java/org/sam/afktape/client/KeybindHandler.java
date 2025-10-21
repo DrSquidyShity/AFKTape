@@ -2,6 +2,7 @@ package org.sam.afktape.client;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.util.Formatting;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +12,8 @@ import static net.minecraft.util.Formatting.*;
 public class KeybindHandler {
 
     public static final KeybindHandler INSTANCE = new KeybindHandler();
+
+    private final SoundManager soundManager = new SoundManager();
 
     private boolean running = false;
     private boolean paused = false;
@@ -33,12 +36,13 @@ public class KeybindHandler {
     public void enable(Set<KeyBinding> keys) {
         running = true;
         enabledKeys.addAll(keys);
+        soundManager.mute();
         MinecraftClient.getInstance().mouse.unlockCursor();
     }
 
     public String[] getMessage() {
 
-        String[] msg = new String[2];
+        String[] msg = new String[4];
 
         if (MinecraftClient.getInstance().player != null) {
             StringBuilder str = new StringBuilder();
@@ -59,7 +63,9 @@ public class KeybindHandler {
             }
 
             msg[0] = str.toString();
-            msg[1] = (WHITE + "Press " + RED + "ESCAPE" + WHITE + " to exit");
+            msg[1] = (WHITE + "Volume (" + soundManager.getOldVolume() +"%) is " + GRAY + "MUTED" + WHITE);
+            msg[2] = "";
+            msg[3] = (WHITE + "Press " + RED + "ESCAPE" + WHITE + " to exit");
             return msg;
         }
         return new String[0];
@@ -68,6 +74,7 @@ public class KeybindHandler {
     public void disable() {
         enabledKeys.forEach(key -> key.setPressed(false));
         enabledKeys.clear();
+        soundManager.unmute();
         running = false;
         unpause();
         wasPaused = false;
